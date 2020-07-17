@@ -63,13 +63,25 @@ class Node {
         self.nodeFromOption = function nodeFromOption(){
             console.log('self is ', self);
             console.log('this is', this)
+            var selectHandle = d3.select(this).attr('handle');
             //remove all child nodes when option changes
-            self.children.forEach(function(child){child.close()})
-            self.children = [];
+            var newChildren = [];
+            self.children.forEach(function(child){
+                console.log('this is', this)
+                if (child.handle==selectHandle){
+                    child.close()
+                }
+                else {
+                    newChildren.push(child)
+                }
+            })
+            self.children = newChildren;
+            
             // create a new node based on selected option
 
             var newNode = new Node(nodeDefs[this.value]);
             newNode.indentLevel = self.indentLevel + 10;
+            newNode.handle = selectHandle;
             // if current node doesn't have parents, make a parents property with current node as only thing
             self.children.push(newNode);
             //updatePartsList(rootNode);
@@ -84,10 +96,16 @@ class Node {
         var optionGroups = Object.keys(this.options);
         if (optionGroups.length > 0){
             for (var i in optionGroups){
-                var thisSelect = d3.select('#configDiv').append('select');
+
+                var selectDiv = d3.select('#configDiv').append('div').classed('configDiv', true);
+                var selectLabel = selectDiv.append('div').html(optionGroups[i])
+                var thisSelect = selectDiv.append('select');
+                
+                thisSelect.attr('handle',Math.random())
+                
                 thisSelect.on('change', self.nodeFromOption)
                 thisSelect.style('margin-left', 10*self.indentLevel + 'px')
-                this.selects.push(thisSelect);
+                this.selects.push(selectDiv);
                 thisSelect
                     .selectAll('option')
                     .data(this.options[optionGroups[i]])
@@ -121,6 +139,10 @@ class Node {
     }
 }
 
+
+var motorizedSlitCoverPlates = ['SR-ASM-0016'];
+var manualSlitCoverPlates = ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100', 'SR-ASM-0106'];
+
 // define a ky328i parent node
 
 var nodeDefs = {
@@ -130,9 +152,10 @@ var nodeDefs = {
         'partType' : 'spectrometer',
         'partNumber' : '',
         'options' : { 
-            'chassis' : ['A','B1']
+            'Chassis Configuration' : ['A','B1']
         },
         'parents' : [],
+        'handle' : 0,
     },
 
 // =========== blank def ========================================
@@ -148,31 +171,66 @@ var nodeDefs = {
 // =========== configurations ===================================
 
     'A' : {
-        'name' : 'A Congfiguration',
+        'name' : 'A - 1 Slit Input, 1 Camera Output',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-A',
         'options' : { 
-            'slit' : ['Manual Slit Assembly','SR-ASZ-0032']
+            'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
+            'Side Input' : ['Manual Slit Assembly','SR-ASZ-0032', 'SR-ASM-8011'],
+            'Direct Output' : ['MFL-SR-CCD']
         },
     },
 
     'B1' : {
-        'name' : 'B1 Congfiguration',
+        'name' : 'B1 - 1 Slit Input, 1 Camera Output, 1 Slit Output ',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-B1',
         'options' : { 
-            
+            'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
+            'Side Input' : ['Manual Slit Assembly','SR-ASZ-0032', 'SR-ASM-8011'],
+            'Direct Output' : ['MFL-SR-CCD'],
+            'Side Output' : ['Manual Slit Assembly', 'SR-ASZ-0036']
         },
     },
+
+// =========== filter wheels ===========================
+
+'ACC-SR-ASZ-7006' : {
+    'name' : 'Filter Wheel Assembly',
+    'partType' : 'filter wheel',
+    'partNumber' : 'ACC-SR-ASZ-7006',
+    'options' : { 
+    },
+},
+
+'Spacer Only' : {
+    'name' : 'Spacer Only',
+    'partType' : 'filter wheel',
+    'partNumber' : '-',
+    'options' : { 
+    },
+},
+
+// =========== input flanges ===========================
+
+'SR-ASM-8011' : {
+    'name' : 'Fixed FC Fibre Adapter',
+    'partType' : 'input flange',
+    'partNumber' : 'SR-ASM-8011',
+    'options' : { 
+        
+    },
+},
 
 // =========== slits ===================================
 
     'Manual Slit Assembly' : {
         'name' : 'Manual Slit Assembly',
         'partType' : 'slit',
-        'partNumber' : 'standard',
+        'partNumber' : '',
         'options' : { 
-            'cover plate' : ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100'],
+            'Cover Plate' : manualSlitCoverPlates,
+            
         },
     },
 
@@ -181,7 +239,16 @@ var nodeDefs = {
         'partType' : 'slit',
         'partNumber' : 'SR-ASZ-0032',
         'options' : { 
-            'cover plate' : ['SR-ASM-0016']
+            'cover plate' : motorizedSlitCoverPlates,
+        },
+    },
+
+    'SR-ASZ-0036' : {
+        'name' : 'Motorized Output Slit Assembly',
+        'partType' : 'slit',
+        'partNumber' : 'SR-ASZ-0036',
+        'options' : { 
+            'cover plates' : motorizedSlitCoverPlates,
         },
     },
 
@@ -197,9 +264,9 @@ var nodeDefs = {
 // =========== slit cover plates ===================================
 
     'SR-ASM-0025' : {
-        'name' : '6 x 4 mm (W x H) Slit Cover Plate',
+        'name' : '6 x 4 mm (W x H) Slit Cover Plate (included) ',
         'partType' : 'cover plate',
-        'partNumber' : 'SR-ASM-0025',
+        'partNumber' : '', // SR-ASM-0025 but always included as default when an options
         'options' : { 
             
         },
@@ -248,14 +315,92 @@ var nodeDefs = {
         },
     },
 
-    'SR-ASM-0016' : {
-        'name' : '6 x 4 mm (W x H) Slit Cover Plate',
+    'SR-ASM-0106' : {
+        'name' : '&#8960;32 mm Slit Cover Plate',
         'partType' : 'cover plate',
-        'partNumber' : '',
+        'partNumber' : 'SR-ASM-0106',
         'options' : { 
             
         },
-    }
+    },
+
+    // motorized 
+
+    'SR-ASM-0016' : {
+        'name' : '6 x 4 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : '', // SR-ASM-0016 but always included as default when an options
+        'options' : { 
+            
+        },
+    },
+
+    'SR-ASM-0017' : {
+        'name' : '6 x 6 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0017',
+        'options' : { 
+            
+        },
+    },
+
+    'SR-ASM-0010' : {
+        'name' : '6 x 8 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0010',
+        'options' : { 
+            
+        },
+    },
+
+    'SR-ASM-0011' : {
+        'name' : '6 x 14 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0011',
+        'options' : {        
+        },
+    },
+
+    'SR-ASM-0027' : {
+        'name' : '&#8960;27 mm Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0027',
+        'options' : {        
+        },
+    },
+
+    'SR-ASM-0107' : {
+        'name' : '&#8960;32 mm Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0107',
+        'options' : { 
+            
+        },
+    },
+
+
+
+// =================== Output Flanges ===================  
+
+'MFL-SR-CCD' : {
+    'name' : 'Multichannel Detector Flange',
+    'partType' : 'output flange',
+    'partNumber' : 'MFL-SR-CCD',
+    'options' : { 
+        
+    },
+}, 
+
+'SR-ASM-0065' : {
+    'name' : 'Optical Cage System Adapter',
+    'partType' : 'output flange',
+    'partNumber' : 'SR-ASM-0065',
+    'options' : { 
+        
+    },
+}
+
+
 }
 
 var testObj = {'a':100,'b':200}
@@ -267,11 +412,13 @@ app.masterNode = rootNode;
 function updatePartsList(someNode){
     console.log('toot')
     var l = someNode.gatherParts();
-    d3.select('#partsList').selectAll('ul').remove();
-    var partUl = d3.select('#partsList').append('ul')
+    d3.select('#partsList').selectAll('table').remove();
+    var partTable = d3.select('#partsList').append('table')
     l.forEach(function(d){
         if (d.partNumber!==''){
-            partUl.append('li').html(d.name + ' , ' + d.partNumber);
+            var partTr = partTable.append('tr')
+            partTr.append('td').html(d.name);
+            partTr.append('td').html(d.partNumber)
         }
     })
 }
@@ -279,7 +426,7 @@ function updatePartsList(someNode){
 
 function formatNodes(someNode, marg = 0){
     someNode.selects.forEach(d=>d.style('margin-left', marg + 'px'));
-    someNode.children.forEach(c=>formatNodes(c, marg + 10))
+    someNode.children.forEach(c=>formatNodes(c, marg + 20))
 }
 
 
