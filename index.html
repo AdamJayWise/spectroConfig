@@ -11,14 +11,29 @@
             }
 
             #BOM {
-                width: 200px;
+                width: 400px;
                 border : 1px solid black;
                 padding : 5px;
                 
             }
 
+            select {
+                display : block;
+            }
+
             #partsList {
 
+            }
+
+            #mainDisplayDiv {
+                margin : 10px;
+                border : 1px solid red;
+            }
+
+            #configDiv {
+                margin : 10px;
+                border : 1px solid gray;
+                padding : 10px;
             }
 
             
@@ -27,6 +42,14 @@
 
     <body>
        
+        <div id = "mainDisplayDiv">
+
+        </div>
+
+        <div id = "configDiv">
+
+        </div>
+
         <div id = "BOM">
             Parts to Quote:
             <div id = "partsList"></div>

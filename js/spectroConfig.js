@@ -55,17 +55,26 @@ class Node {
             self[k] = configObj[k];
         })
 
+        if (self.master = true){
+            self.indentLevel = 0;
+        }
 
         // function to create a node based on the value of option when select is changed
-        function nodeFromOption(){
-            console.log(this.value);
+        self.nodeFromOption = function nodeFromOption(){
+            console.log('self is ', self);
+            console.log('this is', this)
             //remove all child nodes when option changes
             self.children.forEach(function(child){child.close()})
             self.children = [];
             // create a new node based on selected option
-            self.children.push(new Node(nodeDefs[this.value]));
+
+            var newNode = new Node(nodeDefs[this.value]);
+            newNode.indentLevel = self.indentLevel + 10;
+            // if current node doesn't have parents, make a parents property with current node as only thing
+            self.children.push(newNode);
             //updatePartsList(rootNode);
             if (app.masterNode){
+                formatNodes(app.masterNode)
                 updatePartsList(app.masterNode)
             }
         }
@@ -75,17 +84,19 @@ class Node {
         var optionGroups = Object.keys(this.options);
         if (optionGroups.length > 0){
             for (var i in optionGroups){
-                var thisSelect = d3.select('body').append('select');
-                thisSelect.on('change', nodeFromOption)
+                var thisSelect = d3.select('#configDiv').append('select');
+                thisSelect.on('change', self.nodeFromOption)
+                thisSelect.style('margin-left', 10*self.indentLevel + 'px')
                 this.selects.push(thisSelect);
                 thisSelect
                     .selectAll('option')
                     .data(this.options[optionGroups[i]])
                     .enter()
                     .append('option')
-                    .text(d=>d)
+                    .property('value', d=>d)
+                    .html(d=>nodeDefs[d].name)
                     
-                nodeFromOption.call(thisSelect.node());
+                self.nodeFromOption.call(thisSelect.node());
 
 
             }
@@ -104,7 +115,7 @@ class Node {
     }
 
     gatherParts(l = []){
-        l.push(this.partNumber);
+        l.push(this);
         this.children.forEach(c=>c.gatherParts(l))
         return l;
     }
@@ -117,23 +128,36 @@ var nodeDefs = {
         'master' : true,
         'name' : 'Kymera 328',
         'partType' : 'spectrometer',
-        'partNumber' : 'ky328i',
+        'partNumber' : '',
         'options' : { 
             'chassis' : ['A','B1']
         },
+        'parents' : [],
     },
+
+// =========== blank def ========================================
+
+'-' : {
+    'name' : '-',
+    'partType' : '',
+    'partNumber' : '',
+    'options' : { 
+    },
+},
+
+// =========== configurations ===================================
 
     'A' : {
         'name' : 'A Congfiguration',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-A',
         'options' : { 
-            'slit' : ['Manual Slit Assembly','Motorized Slit Assembly']
+            'slit' : ['Manual Slit Assembly','SR-ASZ-0032']
         },
     },
 
     'B1' : {
-        'name' : 'A Congfiguration',
+        'name' : 'B1 Congfiguration',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-B1',
         'options' : { 
@@ -141,37 +165,93 @@ var nodeDefs = {
         },
     },
 
+// =========== slits ===================================
+
     'Manual Slit Assembly' : {
         'name' : 'Manual Slit Assembly',
         'partType' : 'slit',
         'partNumber' : 'standard',
         'options' : { 
-            
+            'cover plate' : ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100'],
         },
     },
 
-    'Motorized Slit Assembly' : {
+    'SR-ASZ-0032' : {
         'name' : 'Motorized Slit Assembly',
         'partType' : 'slit',
-        'partNumber' : 'SR-ASZ-0035',
+        'partNumber' : 'SR-ASZ-0032',
         'options' : { 
-            'cover plate' : ['cover plate 1', 'cover plate 2']
+            'cover plate' : ['SR-ASM-0016']
         },
     },
 
-    'cover plate 1' : {
-        'name' : 'Slit Cover Plate 1',
+    'Wide Aperture Slit' : {
+        'name' : 'Wide Aperture Slit',
+        'partType' : 'slit',
+        'partNumber' : 'SR-ASZ-0095',
+        'options' : { 
+
+        },
+    },
+
+// =========== slit cover plates ===================================
+
+    'SR-ASM-0025' : {
+        'name' : '6 x 4 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
-        'partNumber' : '...',
+        'partNumber' : 'SR-ASM-0025',
         'options' : { 
             
         },
     },
 
-    'cover plate 2' : {
-        'name' : 'Slit Cover Plate 2',
+    'SR-ASM-0026' : {
+        'name' : '6 x 6 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
-        'partNumber' : '...',
+        'partNumber' : 'SR-ASM-0026',
+        'options' : { 
+            
+        },
+    },
+
+    'SR-ASM-0027' : {
+        'name' : '6 x 8 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0027',
+        'options' : { 
+            
+        },
+    },
+
+    'SR-ASM-0028' : {
+        'name' : '6 x 10 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0028',
+        'options' : { 
+            
+        },
+    },
+
+    'SR-ASM-0029' : {
+        'name' : '6 x 14 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0029',
+        'options' : {        
+        },
+    },
+
+    'SR-ASM-0100' : {
+        'name' : '&#8960;27 mm Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : 'SR-ASM-0100',
+        'options' : {        
+        },
+    },
+
+    'SR-ASM-0016' : {
+        'name' : '6 x 4 mm (W x H) Slit Cover Plate',
+        'partType' : 'cover plate',
+        'partNumber' : '',
         'options' : { 
             
         },
@@ -187,11 +267,23 @@ app.masterNode = rootNode;
 function updatePartsList(someNode){
     console.log('toot')
     var l = someNode.gatherParts();
-    console.log(l)
-    d3.select('#partsList').selectAll('div').remove();
+    d3.select('#partsList').selectAll('ul').remove();
+    var partUl = d3.select('#partsList').append('ul')
     l.forEach(function(d){
-        d3.select('#partsList').append('div').text(d);
+        if (d.partNumber!==''){
+            partUl.append('li').html(d.name + ' , ' + d.partNumber);
+        }
     })
 }
 
-updatePartsList(rootNode)
+
+function formatNodes(someNode, marg = 0){
+    someNode.selects.forEach(d=>d.style('margin-left', marg + 'px'));
+    someNode.children.forEach(c=>formatNodes(c, marg + 10))
+}
+
+
+formatNodes(app.masterNode)
+updatePartsList(app.masterNode)
+
+
