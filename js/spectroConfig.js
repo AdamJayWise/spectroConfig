@@ -148,6 +148,8 @@ var motorizedSlitCoverPlates = ['SR-ASM-0016'];
 var manualSlitCoverPlates = ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100', 'SR-ASM-0106'];
 var gratings = ['Empty Grating Slot','SR-GRT-0150-0300', 'SR-GRT-0150-0500', 'SR-GRT-0150-0800','SR-GRT-0150-1250', ];
 var cameraFlanges = ['MFL-SR-CCD', 'MFL-SR-IKON-M', 'MFL-SR-IXON', 'MFL-SR-ISTAR-DIRECT', 'MFL-SR-ZYLA', 'MFL-SR-MARANA'];
+var slitMountableAccessories = ['-', 'ACC-SR-ASZ-0056', 'SR-ASM-0038']
+var sideOutputSlits = ['Manual Slit Assembly', 'SR-ASZ-0036', 'SR-ASM-0065', 'SR-ASM-8053', 'SR-ASM-8055','SR-ASM-8054', 'SR-ASM-8056', 'SR-ASM-8052', 'SR-ASM-8069']    
 
 // define a ky328i parent node
 
@@ -158,7 +160,7 @@ var nodeDefs = {
         'partType' : 'spectrometer',
         'partNumber' : '',
         'options' : { 
-            'Configuration' : ['A','B1']
+            'Configuration' : ['A','B1', 'B2']
         },
         'div' : d3.select('#configDiv'),
     },
@@ -198,14 +200,31 @@ var nodeDefs = {
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input' : sideInputSlitOptions,
-            'Direct Output' : ['MFL-SR-CCD'],
-            'Side Output' : ['Manual Slit Assembly', 'SR-ASZ-0036'],
+            'Direct Output' : cameraFlanges,
+            'Side Output' : sideOutputSlits,
             'Grating 1' : gratings,
             'Grating 2' : gratings,
             'Grating 3' : gratings,
             'Grating 4' : gratings,
         },
     },
+
+    'B2' : {
+        'name' : 'B2 - 1 Slit Input, 2 Camera Outputs ',
+        'partType' : 'chassis',
+        'partNumber' : 'KYMERA-328i-B2',
+        'options' : { 
+            'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
+            'Side Input' : sideInputSlitOptions,
+            'Direct Output' : cameraFlanges,
+            'Side Output' : cameraFlanges,
+            'Grating 1' : gratings,
+            'Grating 2' : gratings,
+            'Grating 3' : gratings,
+            'Grating 4' : gratings,
+        },
+    },
+
 
 // =========== filter wheels ===========================
 
@@ -252,7 +271,7 @@ var nodeDefs = {
     'options' : { 
         
     },
-},
+},      
 
 'SR-ASM-8053' : {
     'name' : 'Direct X-Y FC Fibre Coupler',
@@ -281,6 +300,35 @@ var nodeDefs = {
     },
 },
 
+'SR-ASM-8056' : {
+    'name' : 'X-Y FC Fibre Coupler',
+    'partType' : 'input flange',
+    'partNumber' : 'SR-ASM-8056',
+    'options' : { 
+        
+    },
+},
+
+'SR-ASM-8052' : {
+    'name' : 'X-Y SMA Fibre Coupler',
+    'partType' : 'input flange',
+    'partNumber' : 'SR-ASM-8052',
+    'options' : { 
+        
+    },
+},
+
+'SR-ASM-8069' : {
+    'name' : 'X-Y Ferrule Fibre Coupler',
+    'partType' : 'input flange',
+    'partNumber' : 'SR-ASM-8069',
+    'options' : { 
+        
+    },
+},
+
+
+
 // =========== slits ===================================
 
     'Manual Slit Assembly' : {
@@ -289,6 +337,7 @@ var nodeDefs = {
         'partNumber' : '',
         'options' : { 
             'Cover Plate' : manualSlitCoverPlates,
+            'Input Accessory' : slitMountableAccessories,
             
         },
     },
@@ -299,6 +348,7 @@ var nodeDefs = {
         'partNumber' : 'SR-ASZ-0032',
         'options' : { 
             'cover plate' : motorizedSlitCoverPlates,
+            'Input Accessory' : slitMountableAccessories,
         },
     },
 
@@ -316,9 +366,45 @@ var nodeDefs = {
         'partType' : 'slit',
         'partNumber' : 'SR-ASZ-0095',
         'options' : { 
-
+            'Input Accessory' : slitMountableAccessories,
         },
     },
+
+// =========== slit-mountable exit attachments ===================================
+
+'ACC-SR-ASZ-0056' : {
+    'name' : 'Sample Chamber',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'ACC-SR-ASZ-0056', 
+    'options' : { 
+        
+    },
+},
+
+'SR-ASM-0038' : {
+    'name' : 'F/# Matcher for NA = 0.22 Fibre',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0038', 
+    'options' : { 
+        'F/# Adapter' : ['SR-ASM-0041', 'SR-ASM-0064'],
+    },
+},
+
+'SR-ASM-0041' : {
+    'name' : 'SMA Adapter for F/# Matcher',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0041', 
+    'options' : { 
+    },
+},
+
+'SR-ASM-0064' : {
+    'name' : 'FC Adapter for F/# Matcher',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0064', 
+    'options' : { 
+    },
+},
 
 // =========== slit cover plates ===================================
 
