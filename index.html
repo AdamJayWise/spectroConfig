@@ -11,9 +11,9 @@
             }
 
             #BOM {
-                width: 500px;
-                border : 1px solid black;
-                padding : 5px;
+                margin : 10px;
+                border : 1px solid gray;
+                padding : 10px;
                 
             }
 
@@ -44,15 +44,16 @@
 
             }
 
-            #mainDisplayDiv {
-                margin : 10px;
-                border : 1px solid red;
-            }
 
             #configDiv {
                 margin : 10px;
                 border : 1px solid gray;
                 padding : 10px;
+            }
+
+            #mainDisplay {
+                display : flex;
+                flex-direction : row;
             }
 
             
@@ -61,18 +62,25 @@
 
     <body>
        
-        <div id = "mainDisplayDiv">
+        Kymera 328i Congfigurator v0.01
+        <div id = "mainDisplay">
+        
+            <div id = "configDiv">
+            
+            </div>
+
+            <div id = "BOM">
+                Parts to Quote:
+                <div id = "partsList"></div>
+            </div>
+
+ 
+    
 
         </div>
 
-        <div id = "configDiv">
 
-        </div>
 
-        <div id = "BOM">
-            Parts to Quote:
-            <div id = "partsList"></div>
-        </div>
 
     </body>
 

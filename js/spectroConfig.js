@@ -146,6 +146,8 @@ class Node {
 var sideInputSlitOptions = ['Manual Slit Assembly', 'SR-ASM-8011', 'ACC-SR-ASM-8003', 'SR-ASZ-0032', 'SR-ASZ-0095',  'SR-ASM-8053', 'SR-ASM-8055', 'SR-ASM-8054'];
 var motorizedSlitCoverPlates = ['SR-ASM-0016'];
 var manualSlitCoverPlates = ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100', 'SR-ASM-0106'];
+var gratings = ['Empty Grating Slot','SR-GRT-0150-0300', 'SR-GRT-0150-0500', 'SR-GRT-0150-0800','SR-GRT-0150-1250', ];
+var cameraFlanges = ['MFL-SR-CCD', 'MFL-SR-IKON-M', 'MFL-SR-IXON', 'MFL-SR-ISTAR-DIRECT', 'MFL-SR-ZYLA', 'MFL-SR-MARANA'];
 
 // define a ky328i parent node
 
@@ -156,7 +158,7 @@ var nodeDefs = {
         'partType' : 'spectrometer',
         'partNumber' : '',
         'options' : { 
-            'Chassis Configuration' : ['A','B1']
+            'Configuration' : ['A','B1']
         },
         'div' : d3.select('#configDiv'),
     },
@@ -181,7 +183,11 @@ var nodeDefs = {
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input' : sideInputSlitOptions,
-            'Direct Output' : ['MFL-SR-CCD']
+            'Direct Output' : cameraFlanges,
+            'Grating 1' : gratings,
+            'Grating 2' : gratings,
+            'Grating 3' : gratings,
+            'Grating 4' : gratings,
         },
     },
 
@@ -193,7 +199,11 @@ var nodeDefs = {
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input' : sideInputSlitOptions,
             'Direct Output' : ['MFL-SR-CCD'],
-            'Side Output' : ['Manual Slit Assembly', 'SR-ASZ-0036']
+            'Side Output' : ['Manual Slit Assembly', 'SR-ASZ-0036'],
+            'Grating 1' : gratings,
+            'Grating 2' : gratings,
+            'Grating 3' : gratings,
+            'Grating 4' : gratings,
         },
     },
 
@@ -204,13 +214,22 @@ var nodeDefs = {
     'partType' : 'filter wheel',
     'partNumber' : 'ACC-SR-ASZ-7006',
     'options' : { 
-    },
+        'Filters' : ['Misc Filters']
+        },
+    }
+,
+
+'Misc Filters' : {
+    'name' : '25mm Dia. Filters',
+    'partNumber' : '*',
+    'options' : {},
+
 },
 
 'Spacer Only' : {
-    'name' : 'Spacer Only',
+    'name' : 'Spacer Only, No Filter Wheel',
     'partType' : 'filter wheel',
-    'partNumber' : '-',
+    'partNumber' : '',
     'options' : { 
     },
 },
@@ -431,6 +450,51 @@ var nodeDefs = {
     },
 }, 
 
+'MFL-SR-IKON-M' : {
+    'name' : 'iKon-M Mounting Flange',
+    'partType' : 'output flange',
+    'partNumber' : 'MFL-SR-IKON-M',
+    'options' : { 
+        
+    },
+}, 
+
+'MFL-SR-IXON' : {
+    'name' : 'iXon Mounting Flange',
+    'partType' : 'output flange',
+    'partNumber' : 'MFL-SR-IXON',
+    'options' : { 
+        
+    },
+}, 
+
+'MFL-SR-ISTAR-DIRECT' : {
+    'name' : 'iStar Mounting Flange',
+    'partType' : 'output flange',
+    'partNumber' : 'MFL-SR-ISTAR-DIRECT',
+    'options' : { 
+        
+    },
+}, 
+
+'MFL-SR-ZYLA' : {
+    'name' : 'Zyla Mounting Flange',
+    'partType' : 'output flange',
+    'partNumber' : 'MFL-SR-ZYLA',
+    'options' : { 
+        
+    },
+}, 
+
+'MFL-SR-MARANA' : {
+    'name' : 'Marana Mounting Flange',
+    'partType' : 'output flange',
+    'partNumber' : 'MFL-SR-MARANA',
+    'options' : { 
+        
+    },
+}, 
+
 'SR-ASM-0065' : {
     'name' : 'Optical Cage System Adapter',
     'partType' : 'output flange',
@@ -438,12 +502,61 @@ var nodeDefs = {
     'options' : { 
         
     },
+},
+
+
+/////////////////////// Gratings ///////////////////////
+
+'Empty Grating Slot' : {
+    'name' : '-',
+    'partType' : 'grating',
+    'partNumber' : '',
+    'options' : { 
+        
+    },
+},
+
+'SR-GRT-0150-0300' : {
+    'name' : '150 l/mm, 300nm Blaze, SR-GRT-0150-0300',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0150-0300',
+    'options' : { 
+        
+    },
+},
+
+'SR-GRT-0150-0500' : {
+    'name' : '150 l/mm, 500nm Blaze, SR-GRT-0150-0500',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0150-0500',
+    'options' : { 
+        
+    },
+},
+
+'SR-GRT-0150-0800' : {
+    'name' : '150 l/mm, 800nm Blaze, SR-GRT-0150-0800',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0150-0800',
+    'options' : { 
+        
+    },
+},
+
+'SR-GRT-0150-1250' : {
+    'name' : '150 l/mm, 1250nm Blaze, SR-GRT-0150-1250',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0150-1250',
+    'options' : { 
+        
+    },
+},
+
 }
 
 
-}
 
-var testObj = {'a':100,'b':200}
+
 
 var rootNode = new Node(nodeDefs['ky328i'])
 app.masterNode = rootNode;
