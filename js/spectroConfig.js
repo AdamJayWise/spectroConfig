@@ -55,15 +55,14 @@ class Node {
             self[k] = configObj[k];
         })
 
-        if (self.master = true){
-            self.indentLevel = 0;
-        }
-
+        //self.div = self.parent.div.append('div').attr('id',self.name + 'made during init')
+        
         // function to create a node based on the value of option when select is changed
         self.nodeFromOption = function nodeFromOption(){
             console.log('self is ', self);
             console.log('this is', this)
             var selectHandle = d3.select(this).attr('handle');
+            var parentSelect = d3.select(this.parentNode)
             //remove all child nodes when option changes
             var newChildren = [];
             self.children.forEach(function(child){
@@ -79,9 +78,11 @@ class Node {
             
             // create a new node based on selected option
 
-            var newNode = new Node(nodeDefs[this.value]);
-            newNode.indentLevel = self.indentLevel + 10;
-            newNode.handle = selectHandle;
+            var newNodeDefs = nodeDefs[this.value];
+            newNodeDefs.div = parentSelect.append('div');
+            var newNode = new Node(newNodeDefs);
+            newNode.handle = selectHandle;  
+            console.log('newnode is ', newNode)
             // if current node doesn't have parents, make a parents property with current node as only thing
             self.children.push(newNode);
             //updatePartsList(rootNode);
@@ -89,7 +90,7 @@ class Node {
                 formatNodes(app.masterNode)
                 updatePartsList(app.masterNode)
             }
-        }
+        } // end nodefromoption
     
         // create a select for each group of options available
         this.selects = [];  
@@ -97,14 +98,15 @@ class Node {
         if (optionGroups.length > 0){
             for (var i in optionGroups){
 
-                var selectDiv = d3.select('#configDiv').append('div').classed('configDiv', true);
+                console.log('nodefromoption self is now ', self)
+                
+                var selectDiv = self.div.append('div').classed('configDiv', true).attr('id',optionGroups[i] + ' made during initialization');
                 var selectLabel = selectDiv.append('div').html(optionGroups[i])
                 var thisSelect = selectDiv.append('select');
                 
                 thisSelect.attr('handle',Math.random())
                 
                 thisSelect.on('change', self.nodeFromOption)
-                thisSelect.style('margin-left', 10*self.indentLevel + 'px')
                 this.selects.push(selectDiv);
                 thisSelect
                     .selectAll('option')
@@ -112,10 +114,11 @@ class Node {
                     .enter()
                     .append('option')
                     .property('value', d=>d)
-                    .html(d=>nodeDefs[d].name)
+                    .html(function(d){
+                        console.log(d)
+                        return nodeDefs[d].name})
                     
                 self.nodeFromOption.call(thisSelect.node());
-
 
             }
         }
@@ -127,7 +130,8 @@ class Node {
     }
 
     close() {
-          this.selects.forEach(d=>d.remove())  
+          this.div.remove();
+          //this.selects.forEach(d=>d.remove())  
           this.children.forEach(c=>c.close())
           delete this;
     }
@@ -139,7 +143,7 @@ class Node {
     }
 }
 
-
+var sideInputSlitOptions = ['Manual Slit Assembly', 'SR-ASM-8011', 'ACC-SR-ASM-8003', 'SR-ASZ-0032', 'SR-ASZ-0095',  'SR-ASM-8053', 'SR-ASM-8055', 'SR-ASM-8054'];
 var motorizedSlitCoverPlates = ['SR-ASM-0016'];
 var manualSlitCoverPlates = ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100', 'SR-ASM-0106'];
 
@@ -154,9 +158,9 @@ var nodeDefs = {
         'options' : { 
             'Chassis Configuration' : ['A','B1']
         },
-        'parents' : [],
-        'handle' : 0,
+        'div' : d3.select('#configDiv'),
     },
+    
 
 // =========== blank def ========================================
 
@@ -176,7 +180,7 @@ var nodeDefs = {
         'partNumber' : 'KYMERA-328i-A',
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
-            'Side Input' : ['Manual Slit Assembly','SR-ASZ-0032', 'SR-ASM-8011'],
+            'Side Input' : sideInputSlitOptions,
             'Direct Output' : ['MFL-SR-CCD']
         },
     },
@@ -187,7 +191,7 @@ var nodeDefs = {
         'partNumber' : 'KYMERA-328i-B1',
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
-            'Side Input' : ['Manual Slit Assembly','SR-ASZ-0032', 'SR-ASM-8011'],
+            'Side Input' : sideInputSlitOptions,
             'Direct Output' : ['MFL-SR-CCD'],
             'Side Output' : ['Manual Slit Assembly', 'SR-ASZ-0036']
         },
@@ -217,6 +221,42 @@ var nodeDefs = {
     'name' : 'Fixed FC Fibre Adapter',
     'partType' : 'input flange',
     'partNumber' : 'SR-ASM-8011',
+    'options' : { 
+        
+    },
+},
+
+'ACC-SR-ASM-8003' : {
+    'name' : 'Fixed SMA Fibre Adapter',
+    'partType' : 'input flange',
+    'partNumber' : 'ACC-SR-ASM-8003',
+    'options' : { 
+        
+    },
+},
+
+'SR-ASM-8053' : {
+    'name' : 'Direct X-Y FC Fibre Coupler',
+    'partType' : 'input flange',
+    'partNumber' : 'SR-ASM-8053',
+    'options' : { 
+        
+    },
+},
+
+'SR-ASM-8055' : {
+    'name' : 'Direct X-Y FC-APC Fibre Coupler',
+    'partType' : 'input flange',
+    'partNumber' : 'SR-ASM-8055',
+    'options' : { 
+        
+    },
+},
+
+'SR-ASM-8054' : {
+    'name' : 'Direct X-Y SMA Fibre Coupler',
+    'partType' : 'input flange',
+    'partNumber' : 'SR-ASM-8054',
     'options' : { 
         
     },
@@ -252,7 +292,7 @@ var nodeDefs = {
         },
     },
 
-    'Wide Aperture Slit' : {
+    'SR-ASZ-0095' : {
         'name' : 'Wide Aperture Slit',
         'partType' : 'slit',
         'partNumber' : 'SR-ASZ-0095',
