@@ -1,14 +1,13 @@
 var sideInputSlitOptions = ['Manual Slit Assembly', 'SR-ASM-8011', 'ACC-SR-ASM-8003', 'SR-ASZ-0035', 'SR-ASZ-0086',  'SR-ASM-8053', 'SR-ASM-8055', 'SR-ASM-8054'];
 var directInputSlitOptions = ['Manual Slit Assembly', 'SR-ASM-8011', 'ACC-SR-ASM-8003', 'SR-ASZ-0032', 'SR-ASZ-0095',  'SR-ASM-8053', 'SR-ASM-8055', 'SR-ASM-8054'];
 
-
 var motorizedSlitCoverPlates = [ 'SR-ASM-0016 (Included)', 'SR-ASM-0017', 'SR-ASM-0010', 'SR-ASM-0011','SR-ASM-0072', 'SR-ASM-0107', ];
 var wideApertureSlitCoverPlates = ['SR-ASM-0072 (Included)', 'SR-ASM-0016', 'SR-ASM-0017', 'SR-ASM-0010', 'SR-ASM-0011', 'SR-ASM-0107', ]
 var manualSlitCoverPlates = ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100', 'SR-ASM-0106'];
 var gratings = ['Empty Grating Slot','SR-GRT-0150-0300', 'SR-GRT-0150-0500', 'SR-GRT-0150-0800','SR-GRT-0150-1250', ];
 var cameraFlanges = ['MFL-SR-CCD', 'MFL-SR-IKON-M', 'MFL-SR-IXON', 'MFL-SR-ISTAR-DIRECT', 'MFL-SR-ZYLA', 'MFL-SR-MARANA'];
-var slitMountableAccessories = ['-', 'ACC-SR-ASZ-0056', 'SR-ASM-0038']
-var sideOutputSlits = ['Manual Slit Assembly', 'SR-ASZ-0036', 'SR-ASM-0065', 'SR-ASM-8053', 'SR-ASM-8055','SR-ASM-8054', 'SR-ASM-8056', 'SR-ASM-8052', 'SR-ASM-8069']    
+var slitMountableAccessories = ['-', 'ACC-SR-ASZ-0056', 'SR-ASM-0038', 'SR-ASM-8006', 'SR-ASM-8001', 'SR-ASM-0065', 'SR-ASM-0013', 'SR-ASM-0002', 'SR-ASM-0021', 'SR-ASM-0014', 'SR-ASM-8056', 'SR-ASM-8052', 'SR-ASM-8069']
+var sideOutputSlits = ['Manual Slit Assembly', 'SR-ASZ-0036', 'SR-ASM-0065', 'SR-ASM-8053', 'SR-ASM-8055','SR-ASM-8054', ]    
 
 
 // define a ky328i parent node
@@ -24,6 +23,7 @@ var nodeDefs = {
             'Configuration' : ['A','B1', 'B2', 'C']
         },
         'div' : d3.select('#configDiv'),
+        'graphLabel' : '',
     },
     
 
@@ -43,6 +43,7 @@ var nodeDefs = {
         'name' : 'A - 1 Slit Input, 1 Camera Output',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-A',
+        'graphLabel' : 'A Chassis',
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input Shutter' : ['-','Side Input Shutter'],
@@ -57,6 +58,7 @@ var nodeDefs = {
         'name' : 'B1 - 1 Slit Input, 1 Camera Output, 1 Slit Output ',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-B1',
+        'graphLabel' : 'B1 Chassis',
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input' : sideInputSlitOptions,
@@ -72,6 +74,7 @@ var nodeDefs = {
         'name' : 'B2 - 1 Slit Input, 2 Camera Outputs ',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-B2',
+        'graphLabel' : 'B2 Chassis',
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input Shutter' : ['-','Side Input Shutter'],
@@ -88,6 +91,7 @@ var nodeDefs = {
         'name' : 'C - 2 Slit Inputs, 1 Camera Outputs ',
         'partType' : 'chassis',
         'partNumber' : 'KYMERA-328i-B2',
+        'graphLabel' : 'C Chassis',
         'options' : { 
 
             'Direct Input Shutter' : ['-','Direct Input Shutter'],
@@ -112,6 +116,9 @@ var nodeDefs = {
     'name' : '4-Position Grating Turret',
     'partType' : 'turret',
     'partNumber' : '',
+    'graphLabel' : 'Turret',
+    //'fx' : 150,
+    //'fy' : 250,
     'options' : { 
         'Grating 1' : gratings,
         'Grating 2' : gratings,
@@ -129,6 +136,7 @@ var nodeDefs = {
     'name' : 'Filter Wheel Assembly',
     'partType' : 'filter wheel',
     'partNumber' : 'ACC-SR-ASZ-7006',
+    'graphLabel' : 'Filter Wheel',
     'options' : { 
         'Filters' : ['Misc Filters']
         },
@@ -138,6 +146,7 @@ var nodeDefs = {
 'Misc Filters' : {
     'name' : '25mm Dia. Filters',
     'partNumber' : '*',
+    'graphLabel' : 'Filters',
     'options' : {},
 
 },
@@ -156,6 +165,7 @@ var nodeDefs = {
     'name' : 'Side Input TruRes Iris',
     'partType' : 'iris',
     'partNumber' : 'SR-IRIS-SIDE',
+    'graphLabel' : 'TrueRes Iris',
     'options' : { 
     },
 },
@@ -164,6 +174,7 @@ var nodeDefs = {
     'name' : 'Direct Input TruRes Iris',
     'partType' : 'iris',
     'partNumber' : 'SR-IRIS-DIR',
+    'graphLabel' : 'TrueRes Iris',
     'options' : { 
     },
 },
@@ -172,6 +183,7 @@ var nodeDefs = {
     'name' : 'Side Input Shutter',
     'partType' : 'shutter',
     'partNumber' : 'SR-SHT-9006',
+    'graphLabel' : 'Shutter',
     'options' : { 
     },
 },
@@ -180,6 +192,7 @@ var nodeDefs = {
     'name' : 'Direct Input Shutter',
     'partType' : 'shutter',
     'partNumber' : 'SR-SHT-9007',
+    'graphLabel' : 'Shutter',
     'options' : { 
     },
 },
@@ -193,6 +206,7 @@ var nodeDefs = {
     'name' : 'Fixed FC Fibre Adapter',
     'partType' : 'input flange',
     'partNumber' : 'SR-ASM-8011',
+    'graphLabel' : 'Fixed FC Fibre Adapter',
     'options' : { 
         
     },
@@ -202,6 +216,7 @@ var nodeDefs = {
     'name' : 'Fixed SMA Fibre Adapter',
     'partType' : 'input flange',
     'partNumber' : 'ACC-SR-ASM-8003',
+    'graphLabel' : 'Fixed SMA Adapter',
     'options' : { 
         
     },
@@ -211,6 +226,7 @@ var nodeDefs = {
     'name' : 'Direct X-Y FC Fibre Coupler',
     'partType' : 'input flange',
     'partNumber' : 'SR-ASM-8053',
+    'graphLabel' : 'Direct XY FC Adapter',
     'options' : { 
         
     },
@@ -220,6 +236,7 @@ var nodeDefs = {
     'name' : 'Direct X-Y FC-APC Fibre Coupler',
     'partType' : 'input flange',
     'partNumber' : 'SR-ASM-8055',
+    'graphLabel' : 'Direct XY FC-APC Adapter',
     'options' : { 
         
     },
@@ -229,6 +246,7 @@ var nodeDefs = {
     'name' : 'Direct X-Y SMA Fibre Coupler',
     'partType' : 'input flange',
     'partNumber' : 'SR-ASM-8054',
+    'graphLabel' : 'Direct XY SMA Adapter',
     'options' : { 
         
     },
@@ -238,6 +256,7 @@ var nodeDefs = {
     'name' : 'X-Y FC Fibre Coupler',
     'partType' : 'input flange',
     'partNumber' : 'SR-ASM-8056',
+    'graphLabel' : 'XY FC Adapter',
     'options' : { 
         
     },
@@ -269,6 +288,7 @@ var nodeDefs = {
         'name' : 'Manual Slit Assembly',
         'partType' : 'slit',
         'partNumber' : '',
+        'graphLabel' : 'Manual Slit',
         'options' : { 
             'Cover Plate' : manualSlitCoverPlates,
             'Input Accessory' : slitMountableAccessories,
@@ -283,6 +303,7 @@ var nodeDefs = {
         'name' : 'Motorized Slit Assembly',
         'partType' : 'slit',
         'partNumber' : 'SR-ASZ-0032',
+        'graphLabel' : 'Motorized Slit',
         'options' : { 
             'cover plate' : motorizedSlitCoverPlates,
             'Input Accessory' : slitMountableAccessories,
@@ -294,6 +315,7 @@ var nodeDefs = {
         'name' : 'Motorized Slit Assembly',
         'partType' : 'slit',
         'partNumber' : 'SR-ASZ-0035',
+        'graphLabel' : 'Motorized Slit',
         'options' : { 
             'cover plate' : motorizedSlitCoverPlates,
             'Input Accessory' : slitMountableAccessories,
@@ -367,12 +389,72 @@ var nodeDefs = {
     },
 },
 
+'SR-ASM-8006' : {
+    'name' : 'X Adjustable Fibre Adapter, Ferrule Input',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-8006', 
+    'options' : { 
+    },
+},
+
+'SR-ASM-8001' : {
+    'name' : 'Fixed Fibre Adapter, Ferrule Input',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-8001', 
+    'options' : { 
+    },
+},
+
+'SR-ASM-0065' : {
+    'name' : 'Optical Cage System Adapter',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0065', 
+    'options' : { 
+    },
+},
+
+'SR-ASM-0013' : {
+    'name' : 'F-Mount Camera Lens Adapter',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0013', 
+    'options' : { 
+    },
+},
+
+'SR-ASM-0002' : {
+    'name' : '1.5" Flange Adapter for Newport Oriel Accessories',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0002', 
+    'options' : { 
+    },
+},
+
+
+'SR-ASM-0021' : {
+    'name' : 'C-Mount Adapter',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0021', 
+    'options' : { 
+    },
+},
+
+'SR-ASM-0014' : {
+    'name' : 'Pen-Ray Lamp Mount',
+    'partType' : 'exit port accessory',
+    'partNumber' : 'SR-ASM-0014', 
+    'options' : { 
+    },
+},
+
+
+
 // =========== slit cover plates ===================================
 
     'SR-ASM-0025' : {
         'name' : '6 x 4 mm (W x H) Slit Cover Plate (included) ',
         'partType' : 'cover plate',
         'partNumber' : '', // SR-ASM-0025 but always included as default when an options
+        'graphLabel' : '6x4mm Cover Plate',
         'options' : { 
             
         },
@@ -382,6 +464,7 @@ var nodeDefs = {
         'name' : '6 x 6 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0026',
+        'graphLabel' : '6x6mm Cover Plate',
         'options' : { 
             
         },
@@ -391,6 +474,7 @@ var nodeDefs = {
         'name' : '6 x 8 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0027',
+        'graphLabel' : '6x8mm Cover Plate',
         'options' : { 
             
         },
@@ -400,6 +484,7 @@ var nodeDefs = {
         'name' : '6 x 10 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0028',
+        'graphLabel' : '6x10mm Cover Plate',
         'options' : { 
             
         },
@@ -409,6 +494,7 @@ var nodeDefs = {
         'name' : '6 x 14 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0029',
+        'graphLabel' : '6x14mm Cover Plate',
         'options' : {        
         },
     },
@@ -417,6 +503,7 @@ var nodeDefs = {
         'name' : '&#8960;27 mm Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0100',
+        'graphLabel' : '27mm-dia Cover Plate',
         'options' : {        
         },
     },
@@ -425,6 +512,7 @@ var nodeDefs = {
         'name' : '&#8960;32 mm Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0106',
+        'graphLabel' : '32mm-dia Cover Plate',
         'options' : { 
             
         },
@@ -436,6 +524,7 @@ var nodeDefs = {
         'name' : '6 x 4 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0016', 
+        'graphLabel' : '6x4mm Cover Plate',
         'options' : { 
             
         },
@@ -445,6 +534,7 @@ var nodeDefs = {
         'name' : '6 x 4 mm (W x H) Slit Cover Plate (Included)',
         'partType' : 'cover plate',
         'partNumber' : '', // SR-ASM-0016 but always included as default when an options
+        'graphLabel' : '6x4mm Cover Plate',
         'options' : { 
             
         },
@@ -454,6 +544,7 @@ var nodeDefs = {
         'name' : '6 x 6 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0017',
+        'graphLabel' : '6x6mm Cover Plate',
         'options' : { 
             
         },
@@ -463,6 +554,7 @@ var nodeDefs = {
         'name' : '6 x 8 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0010',
+        'graphLabel' : '6x8mm Cover Plate',
         'options' : { 
             
         },
@@ -472,6 +564,7 @@ var nodeDefs = {
         'name' : '6 x 14 mm (W x H) Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0011',
+        'graphLabel' : '6x14mm Cover Plate',
         'options' : {        
         },
     },
@@ -480,6 +573,7 @@ var nodeDefs = {
         'name' : '&#8960;27 mm Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-072',
+        'graphLabel' : '27mm-dia Cover Plate',
         'options' : {        
         },
     },
@@ -488,6 +582,7 @@ var nodeDefs = {
         'name' : '&#8960;27 mm Slit Cover Plate (Included)',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0027',
+        'graphLabel' : '27mm-dia Cover Plate',
         'options' : {        
         },
     },   
@@ -496,6 +591,7 @@ var nodeDefs = {
         'name' : '&#8960;32 mm Slit Cover Plate',
         'partType' : 'cover plate',
         'partNumber' : 'SR-ASM-0107',
+        'graphLabel' : '32mm-dia Cover Plate',
         'options' : { 
             
         },
@@ -509,6 +605,7 @@ var nodeDefs = {
     'name' : 'Multichannel Detector Flange',
     'partType' : 'output flange',
     'partNumber' : 'MFL-SR-CCD',
+    'graphLabel' : 'Camera Flange',
     'options' : { 
         
     },
@@ -518,6 +615,7 @@ var nodeDefs = {
     'name' : 'iKon-M Mounting Flange',
     'partType' : 'output flange',
     'partNumber' : 'MFL-SR-IKON-M',
+    'graphLabel' : 'iKon-M Flange',
     'options' : { 
         
     },
@@ -527,6 +625,7 @@ var nodeDefs = {
     'name' : 'iXon Mounting Flange',
     'partType' : 'output flange',
     'partNumber' : 'MFL-SR-IXON',
+    'graphLabel' : 'iXon Flange',
     'options' : { 
         
     },
@@ -536,6 +635,7 @@ var nodeDefs = {
     'name' : 'iStar Mounting Flange',
     'partType' : 'output flange',
     'partNumber' : 'MFL-SR-ISTAR-DIRECT',
+    'graphLabel' : 'iStar Flange',
     'options' : { 
         
     },
@@ -545,6 +645,7 @@ var nodeDefs = {
     'name' : 'Zyla Mounting Flange',
     'partType' : 'output flange',
     'partNumber' : 'MFL-SR-ZYLA',
+    'graphLabel' : 'Zyla Flange',
     'options' : { 
         
     },
@@ -554,6 +655,7 @@ var nodeDefs = {
     'name' : 'Marana Mounting Flange',
     'partType' : 'output flange',
     'partNumber' : 'MFL-SR-MARANA',
+    'graphLabel' : 'Marana Flange',
     'options' : { 
         
     },
@@ -563,6 +665,7 @@ var nodeDefs = {
     'name' : 'Optical Cage System Adapter',
     'partType' : 'output flange',
     'partNumber' : 'SR-ASM-0065',
+    'graphLabel' : 'Cage Adapter',
     'options' : { 
         
     },
@@ -584,6 +687,7 @@ var nodeDefs = {
     'name' : '150 l/mm, 300nm Blaze, SR-GRT-0150-0300',
     'partType' : 'grating',
     'partNumber' : 'SR-GRT-0150-0300',
+    'graphLabel' : '150l/mm, 300nm Blaze',
     'options' : { 
         
     },
@@ -593,6 +697,7 @@ var nodeDefs = {
     'name' : '150 l/mm, 500nm Blaze, SR-GRT-0150-0500',
     'partType' : 'grating',
     'partNumber' : 'SR-GRT-0150-0500',
+    'graphLabel' : '150l/mm, 500nm Blaze',
     'options' : { 
         
     },
@@ -602,6 +707,7 @@ var nodeDefs = {
     'name' : '150 l/mm, 800nm Blaze, SR-GRT-0150-0800',
     'partType' : 'grating',
     'partNumber' : 'SR-GRT-0150-0800',
+    'graphLabel' : '150l/mm, 800nm Blaze',
     'options' : { 
         
     },
@@ -611,6 +717,7 @@ var nodeDefs = {
     'name' : '150 l/mm, 1250nm Blaze, SR-GRT-0150-1250',
     'partType' : 'grating',
     'partNumber' : 'SR-GRT-0150-1250',
+    'graphLabel' : '150l/mm, 1250nm Blaze',
     'options' : { 
         
     },

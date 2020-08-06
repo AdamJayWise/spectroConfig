@@ -198,7 +198,7 @@ function marshalLinks(someNode = null, ouput = []){
     var thisHandle = someNode.handle;
     var thisNode = someNode;
     someNode.children.forEach(function(c){
-        var newLink = {'source': thisHandle, 'target' : c.handle, 'dist' : app.rectSize * 4}
+        var newLink = {'source': thisHandle, 'target' : c.handle, 'dist' : app.rectSize * 2}
         if (thisNode.name != '-' && c.name != '-' ){
             output.push(newLink)
             marshalLinks(c, output)
@@ -219,8 +219,8 @@ var hs = d3.select('#displaySvg').style('height').split('px')[0]
 
 var sim = d3.forceSimulation(nodeList)
     .force('center', d3.forceCenter(ws/2,hs/2))
-    .force('charge', d3.forceManyBody().strength(-600))
-    //.force('collide', d3.forceCollide(d=>1.41 * d.r/2))
+    .force('charge', d3.forceManyBody().strength(-200))
+    .force('collide', d3.forceCollide(d=>30))
     .force('links', d3.forceLink(linkList).id(d=>d.handle).distance(d=>d.dist))
     .on('tick', ticked);
 
@@ -246,6 +246,13 @@ function ticked(){
     
 }
 
+function equipmentTooltip(d,n,i){
+    d3.select('body')
+        .append('div')
+        .classed('equipTip', true)
+        .text(d)
+}
+
 function updateViz(){
     console.log('viz updating')
     var nodeList = marshalNodes(rootNode, output = [])
@@ -269,14 +276,17 @@ function updateViz(){
     var vizGs = vizGs
         .enter()
         .append('g')
+        //.on('mouseover', equipmentTooltip)
         .attr('transform',d=>`translate(${d.x0+','+d.y0})`)
         .append('text')
+    
 
        
     d3.selectAll('g').selectAll('text')
-        .text(d=>d.name)
-        .attr('y', -app.rectSize/2 - 5)
-        .attr('x', -50)
+        //.attr('text-anchor', 'start')
+        .text(d=>(d.graphLabel))
+        .attr('y',0)
+        .attr('x', -app.rectSize * 1.5  )
         .attr('font-size', 10)
 
     console.log('poog')
@@ -286,12 +296,11 @@ function updateViz(){
 
     d3.selectAll('g').selectAll('rect').remove()
 
-    var rectSize = 40;
 
 
     d3.selectAll('g').append('rect')
-        .attr('width', rectSize)
-        .attr('height', rectSize)
+        .attr('width', app.rectSize)
+        .attr('height', app.rectSize)
         .attr('x', -app.rectSize/2)
         .attr('y', -app.rectSize/2)
         .style('fill', 'none')
