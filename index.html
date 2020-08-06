@@ -8,9 +8,19 @@
 
             body {
                 font-family: 'Open Sans', sans-serif;
+                font-size : 10pt;
             }
 
             #BOM {
+                margin : 10px;
+                border : 1px solid gray;
+                padding : 10px;
+                flex-grow : 1;
+
+                
+            }
+
+            #viz {
                 margin : 10px;
                 border : 1px solid gray;
                 padding : 10px;
@@ -41,7 +51,7 @@
             }
 
             #partsList {
-
+                
             }
 
 
@@ -54,6 +64,13 @@
             #mainDisplay {
                 display : flex;
                 flex-direction : row;
+            }
+
+            svg {
+                width : 100%;
+                min-height : 500px;
+
+                
             }
 
             
@@ -74,6 +91,13 @@
                 <div id = "partsList"></div>
             </div>
 
+            <div id = "viz">
+                
+                <svg id = "displaySvg"></svg>
+            </div>
+
+
+
  
     
 
@@ -82,9 +106,12 @@
 
 
 
+
+
     </body>
 
     <script src = 'js/d3.min.js'></script>
+    <script src = 'js/equipment.js'></script>
     <script src = 'js/spectroConfig.js'></script>
 
 </html>
