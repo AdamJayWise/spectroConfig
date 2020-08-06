@@ -20,7 +20,7 @@ var nodeDefs = {
         'partType' : 'spectrometer',
         'partNumber' : '',
         'options' : { 
-            'Configuration' : ['A','B1', 'B2', 'C']
+            'Chassis Configuration' : ['A','B1', 'B2', 'C']
         },
         'div' : d3.select('#configDiv'),
         'graphLabel' : '',
@@ -48,7 +48,7 @@ var nodeDefs = {
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input Shutter' : ['-','Side Input Shutter'],
             'Side Input TrueRes' : ['-','Side Input TruRes Iris'],
-            'Side Input' : sideInputSlitOptions,
+            'Side Input Light Coupling' : sideInputSlitOptions,
             'Direct Output' : cameraFlanges,
             'Turret' : ['4-Position Grating Turret'],
         },
@@ -61,7 +61,7 @@ var nodeDefs = {
         'graphLabel' : 'B1 Chassis',
         'options' : { 
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
-            'Side Input' : sideInputSlitOptions,
+            'Side Input Light Coupling' : sideInputSlitOptions,
             'Side Input Shutter' : ['-','Side Input Shutter'],
             'Side Input TrueRes' : ['-','Side Input TruRes Iris'],
             'Direct Output' : cameraFlanges,
@@ -79,7 +79,7 @@ var nodeDefs = {
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input Shutter' : ['-','Side Input Shutter'],
             'Side Input TrueRes' : ['-','Side Input TruRes Iris'],
-            'Side Input' : sideInputSlitOptions,
+            'Side Input Light Coupling' : sideInputSlitOptions,
             'Direct Output' : cameraFlanges,
             'Side Output' : cameraFlanges,
             'Turret' : ['4-Position Grating Turret'],
@@ -101,7 +101,7 @@ var nodeDefs = {
             'Side Input Filter Wheel' : ['Spacer Only','ACC-SR-ASZ-7006'],
             'Side Input Shutter' : ['-','Side Input Shutter'],
             'Side Input TrueRes' : ['-','Side Input TruRes Iris'],
-            'Side Input' : sideInputSlitOptions,
+            'Side Input Light Coupling' : sideInputSlitOptions,
             'Direct Output' : cameraFlanges,
             'Turret' : ['4-Position Grating Turret'],
 
