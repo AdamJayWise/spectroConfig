@@ -4,7 +4,7 @@ var directInputSlitOptions = ['Manual Slit Assembly', 'SR-ASM-8011', 'ACC-SR-ASM
 var motorizedSlitCoverPlates = [ 'SR-ASM-0016 (Included)', 'SR-ASM-0017', 'SR-ASM-0010', 'SR-ASM-0011','SR-ASM-0072', 'SR-ASM-0107', ];
 var wideApertureSlitCoverPlates = ['SR-ASM-0072 (Included)', 'SR-ASM-0016', 'SR-ASM-0017', 'SR-ASM-0010', 'SR-ASM-0011', 'SR-ASM-0107', ]
 var manualSlitCoverPlates = ['SR-ASM-0025', 'SR-ASM-0026', 'SR-ASM-0027', 'SR-ASM-0028', 'SR-ASM-0029', 'SR-ASM-0100', 'SR-ASM-0106'];
-var gratings = ['Empty Grating Slot','SR-GRT-0150-0300', 'SR-GRT-0150-0500', 'SR-GRT-0150-0800','SR-GRT-0150-1250', ];
+var gratings = ['Empty Grating Slot', 'SR-GRT-0150-0300', 'SR-GRT-0150-0500', 'SR-GRT-0150-0800', 'SR-GRT-0150-1250', 'SR-GRT-0150-2000', 'SR-GRT-0300-0300', 'SR-GRT-0300-0500', 'SR-GRT-0300-1000', 'SR-GRT-0300-1200', 'SR-GRT-0300-1700', 'SR-GRT-0600-0300', 'SR-GRT-0600-0500', 'SR-GRT-0600-1000', 'SR-GRT-0600-1200', 'SR-GRT-0600-1900', 'SR-GRT-0830-0820', 'SR-GRT-0830-1200', 'SR-GRT-1200-0300', 'SR-GRT-1200-0500', 'SR-GRT-1200-1000', 'SR-GRT-2400-0300']
 var cameraFlanges = ['MFL-SR-CCD', 'MFL-SR-IKON-M', 'MFL-SR-IXON', 'MFL-SR-ISTAR-DIRECT', 'MFL-SR-ZYLA', 'MFL-SR-MARANA'];
 var slitMountableAccessories = ['-', 'ACC-SR-ASZ-0056', 'SR-ASM-0038', 'SR-ASM-8006', 'SR-ASM-8001', 'SR-ASM-0065', 'SR-ASM-0013', 'SR-ASM-0002', 'SR-ASM-0021', 'SR-ASM-0014', 'SR-ASM-8056', 'SR-ASM-8052', 'SR-ASM-8069']
 var sideOutputSlits = ['Manual Slit Assembly', 'SR-ASZ-0036', 'SR-ASM-0065', 'SR-ASM-8053', 'SR-ASM-8055','SR-ASM-8054', ]    
@@ -422,7 +422,7 @@ var nodeDefs = {
 },
 
 'SR-ASM-0002' : {
-    'name' : '1.5" Flange Adapter for Newport Oriel Accessories',
+    'name' : '1.5" Flange for Newport Oriel Accessories',
     'partType' : 'exit port accessory',
     'partNumber' : 'SR-ASM-0002', 
     'options' : { 
@@ -683,6 +683,7 @@ var nodeDefs = {
     },
 },
 
+
 'SR-GRT-0150-0300' : {
     'name' : '150 l/mm, 300nm Blaze, SR-GRT-0150-0300',
     'partType' : 'grating',
@@ -692,6 +693,7 @@ var nodeDefs = {
         
     },
 },
+
 
 'SR-GRT-0150-0500' : {
     'name' : '150 l/mm, 500nm Blaze, SR-GRT-0150-0500',
@@ -703,6 +705,7 @@ var nodeDefs = {
     },
 },
 
+
 'SR-GRT-0150-0800' : {
     'name' : '150 l/mm, 800nm Blaze, SR-GRT-0150-0800',
     'partType' : 'grating',
@@ -713,11 +716,199 @@ var nodeDefs = {
     },
 },
 
+
 'SR-GRT-0150-1250' : {
     'name' : '150 l/mm, 1250nm Blaze, SR-GRT-0150-1250',
     'partType' : 'grating',
     'partNumber' : 'SR-GRT-0150-1250',
     'graphLabel' : '150l/mm, 1250nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0150-2000' : {
+    'name' : '150 l/mm, 2000nm Blaze, SR-GRT-0150-2000',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0150-2000',
+    'graphLabel' : '150l/mm, 2000nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0300-0300' : {
+    'name' : '300 l/mm, 300nm Blaze, SR-GRT-0300-0300',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0300-0300',
+    'graphLabel' : '300l/mm, 300nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0300-0500' : {
+    'name' : '300 l/mm, 500nm Blaze, SR-GRT-0300-0500',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0300-0500',
+    'graphLabel' : '300l/mm, 500nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0300-1000' : {
+    'name' : '300 l/mm, 1000nm Blaze, SR-GRT-0300-1000',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0300-1000',
+    'graphLabel' : '300l/mm, 1000nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0300-1200' : {
+    'name' : '300 l/mm, 1200nm Blaze, SR-GRT-0300-1200',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0300-1200',
+    'graphLabel' : '300l/mm, 1200nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0300-1700' : {
+    'name' : '300 l/mm, 1700nm Blaze, SR-GRT-0300-1700',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0300-1700',
+    'graphLabel' : '300l/mm, 1700nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0600-0300' : {
+    'name' : '600 l/mm, 300nm Blaze, SR-GRT-0600-0300',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0600-0300',
+    'graphLabel' : '600l/mm, 300nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0600-0500' : {
+    'name' : '600 l/mm, 500nm Blaze, SR-GRT-0600-0500',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0600-0500',
+    'graphLabel' : '600l/mm, 500nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0600-1000' : {
+    'name' : '600 l/mm, 1000nm Blaze, SR-GRT-0600-1000',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0600-1000',
+    'graphLabel' : '600l/mm, 1000nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0600-1200' : {
+    'name' : '600 l/mm, 1200nm Blaze, SR-GRT-0600-1200',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0600-1200',
+    'graphLabel' : '600l/mm, 1200nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0600-1900' : {
+    'name' : '600 l/mm, 1900nm Blaze, SR-GRT-0600-1900',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0600-1900',
+    'graphLabel' : '600l/mm, 1900nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0830-0820' : {
+    'name' : '830 l/mm, 820nm Blaze, SR-GRT-0830-0820',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0830-0820',
+    'graphLabel' : '830l/mm, 820nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-0830-1200' : {
+    'name' : '830 l/mm, 1200nm Blaze, SR-GRT-0830-1200',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-0830-1200',
+    'graphLabel' : '830l/mm, 1200nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-1200-0300' : {
+    'name' : '1200 l/mm, 300nm Blaze, SR-GRT-1200-0300',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-1200-0300',
+    'graphLabel' : '1200l/mm, 300nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-1200-0500' : {
+    'name' : '1200 l/mm, 500nm Blaze, SR-GRT-1200-0500',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-1200-0500',
+    'graphLabel' : '1200l/mm, 500nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-1200-1000' : {
+    'name' : '1200 l/mm, 1000nm Blaze, SR-GRT-1200-1000',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-1200-1000',
+    'graphLabel' : '1200l/mm, 1000nm Blaze',
+    'options' : { 
+        
+    },
+},
+
+
+'SR-GRT-2400-0300' : {
+    'name' : '2400 l/mm, 300nm Blaze, SR-GRT-2400-0300',
+    'partType' : 'grating',
+    'partNumber' : 'SR-GRT-2400-0300',
+    'graphLabel' : '2400l/mm, 300nm Blaze',
     'options' : { 
         
     },
